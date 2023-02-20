@@ -115,6 +115,9 @@ for(let i=0;i<matrix.length;i++){
         }
 }
 /**
+ Bài 0: Tính tổng các số chẵn trong ma trận
+ Bài 01: Đếm các số lẻ trong ma trận
+ Bài 02: Tìm vị trí [i][j] của số nguyên tố đầu tiên trong ma trận
  Bài 1: Tính tổng giá trị tam giác trên bên trái
  Bài 2: Tính tổng giá trị tam giác trên bên phải
  Bài 3: tính tổng giá trị tam giác dưới bên trái 
