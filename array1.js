@@ -7,10 +7,12 @@ let c;      //
 /**
 let numbers1  = [];
 let numbers2 = new Array();
+let numbers = [5,1,3,7,2];
+let numbers = [,,,,];
 
 // độ dài mảng:  3 phần tử
 // chỉ số trong mảng: 0-> 
-let numbers = [5,1,3,7,2];
+
 let length = numbers.length;            // 7
 let endOfArray = length-1               // 6
 
@@ -44,8 +46,9 @@ console.log(numbers[4]);
 
 
 let arr = [3,5,1];
+// 3,5,1: phần tử element, item
 
-// arr.push(2);
+// arr.push(2);         
 // arr.push(4);
 console.log(arr);
 
