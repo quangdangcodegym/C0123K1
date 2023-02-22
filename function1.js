@@ -8,8 +8,9 @@ function checkPrime(number){
     }else{
         let prime = true;
         for(let i=2;i<number-1;i++){
-            if(number%2==0){
+            if(number%i==0){
                 prime = false;
+                break;
             }
         }
         if(prime==true){
