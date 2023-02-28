@@ -16,6 +16,7 @@ function Staff(id, name, dob, gender, phone){
     this.phone = phone
     this.hobbies = [];
 
+    // Ý nghĩa setter: kiếm soát việc cập nhật bất hợp pháp
     this.setHobbies = function (hobbies){
         let check = true;
         for(let i= 0; i<hobbies.length;i++){
@@ -30,10 +31,12 @@ function Staff(id, name, dob, gender, phone){
         }
         
     }
+
+
     this.getName = function (){
         return this.name;
     }
-
+    // Ý nghĩa getter: kiểm soát việc truy cập bất hợp pháp
     this.getPhone = function (){
         // 0399578133 --> 0399578XXX
         let str = this.phone.substring(0, this.phone.length - 3) + "XXX";
