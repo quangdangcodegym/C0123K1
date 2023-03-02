@@ -31,13 +31,14 @@ function Product(id, name, price, quantity){
 }
 
 function initData(){
-    let p1 = new Product(1, "Sony v1", 10000000, 10);
-    let p2 = new Product(10, "Sony v1", 10000000, 10);
-    let p3 = new Product(4, "Sony v1", 30000000, 10);
+    let p1 = new Product(1, "aSony v1", 10000000, 10);
+    let p2 = new Product(10, "aaSony v1", 10000000, 10);
+    let p3 = new Product(4, "bnSony v1", 30000000, 10);
     let p4 = new Product(3, "Sony v1", 10000000, 10);
 
     products = [p1, p2, p3, p4];
 }
+/**
 function drawProduct(){
     let str = "";
     for(let i=0;i<products.length;i++){
@@ -56,6 +57,70 @@ function drawProduct(){
         `
     }
     document.getElementById("tbProducts").innerHTML = str;
+}
+function findProductById(id){
+    for(let i=0;i<products.length;i++){
+        if(products[i].getId()==id){
+            return products[i];
+        }
+    }
+    return null;
+}
+
+function displayHiddenFrmAddUpdate2(showing){
+    let frmAdd = 'none';
+    let frmEdit = 'none';
+
+    if(showing=='add'){
+        frmAdd = 'block';
+        frmEdit = 'none';
+    }else{
+        // showing = edit;
+        frmAdd = 'none';
+        frmEdit = 'block'
+    }
+
+    document.getElementById("idCreate").style.display = frmAdd;
+    document.getElementById("idUpdate").style.display = frmEdit;
+    document.getElementById("idCancel").style.display = frmEdit;
+}
+
+ */
+function drawProduct2(){
+    let strProducts = products.map((product)=>{
+        return `
+            <tr>
+            <td>${product.getId()}</td>
+            <td>${product.getName()}</td>
+            <td class="text-right">${product.getQuantity()}</td>
+            <td class="text-right">${product.getPrice()}</td>
+            <td class="text-right">${formatNumberCurrency(product.getPrice())}</td>
+            <td class="text-center">
+                <input type="button" class="btn  btn-danger" value="Delete"/>
+                <input type="button" onclick="handleEditItem(${product.getId()})" class="btn  btn-dark" value="Edit"/>
+            </td>
+        </tr>
+        `
+    });
+    document.getElementById("tbProducts").innerHTML = strProducts.join("");
+}
+function drawProductsFilter(productsFilter){
+    let strProducts = productsFilter.map((product)=>{
+        return `
+            <tr>
+            <td>${product.getId()}</td>
+            <td>${product.getName()}</td>
+            <td class="text-right">${product.getQuantity()}</td>
+            <td class="text-right">${product.getPrice()}</td>
+            <td class="text-right">${formatNumberCurrency(product.getPrice())}</td>
+            <td class="text-center">
+                <input type="button" class="btn  btn-danger" value="Delete"/>
+                <input type="button" onclick="handleEditItem(${product.getId()})" class="btn  btn-dark" value="Edit"/>
+            </td>
+        </tr>
+        `
+    });
+    document.getElementById("tbProducts").innerHTML = strProducts.join("");
 }
 
 function formatNumberCurrency(price){
@@ -83,7 +148,7 @@ function handleCreate(){
 }
 let products = [];
 initData();
-drawProduct();
+drawProduct2();
 
 function productMaxId(products){
     let pMax = products[0];
@@ -96,12 +161,8 @@ function productMaxId(products){
 }
 
 function handleEditItem(id){
-    let product = findProductById(id);
+    let product = findProductById2(id);
 
-
-    document.getElementById("idCreate").style.display = "none";
-    document.getElementById("idUpdate").style.display = "block";
-    document.getElementById("idCancel").style.display = "block";
 
     document.getElementById("txtName").value = product.getName();
     document.getElementById("txtPrice").value = product.getPrice();
@@ -109,20 +170,25 @@ function handleEditItem(id){
 
     document.getElementById("txtProductUpdate").value = id;
 
+    displayHiddenFrmAddUpdate('update');
 
 }
-function findProductById(id){
-    for(let i=0;i<products.length;i++){
-        if(products[i].getId()==id){
-            return products[i];
+
+
+function findProductById2(id){
+    let product = products.find((product)=>{
+        if(id==product.getId()){
+            return true;
         }
-    }
-    return null;
+    })
+    return product;
 }
+
+
 function handleUpdate(){
     let name = document.getElementById("txtName").value;
-    let price = document.getElementById("txtPrice").value;
-    let quantity = document.getElementById("txtQuantity").value;
+    let price = +document.getElementById("txtPrice").value;
+    let quantity = +document.getElementById("txtQuantity").value;
 
     let idProductUpdate = document.getElementById("txtProductUpdate").value;
 
@@ -133,15 +199,12 @@ function handleUpdate(){
         let p = new Product();
         p.setName(name);
         p.setPrice(price);
-        p.setPrice(quantity);
+        p.setQuantity(quantity);
         updateProductById(idProductUpdate, p);
-        drawProduct();
+        drawProduct2();
     }
 
-    
-    document.getElementById("idCreate").style.display = "block";
-    document.getElementById("idUpdate").style.display = "none";
-    document.getElementById("idCancel").style.display = "none";
+    displayHiddenFrmAddUpdate('add');
 
 
 }
@@ -161,6 +224,35 @@ function resetForm(){
     document.getElementById("txtQuantity").value = "";
 }
 
+function handleCancel(){
+    resetForm();
+    displayHiddenFrmAddUpdate('add')
+    
+}
+
+function displayHiddenFrmAddUpdate(showing){
+    if(showing=='add'){
+        document.getElementById("idCreate").style.display = "block";
+        document.getElementById("idUpdate").style.display = "none";
+        document.getElementById("idCancel").style.display = "none";
+    }else{
+        document.getElementById("idCreate").style.display = "none";
+        document.getElementById("idUpdate").style.display = "block";
+        document.getElementById("idCancel").style.display = "block";
+    }
+}
+
+function handleSearchChange(){
+    let txtSearch = document.getElementById("search").value;
+
+    let productFilters = [];
+    for(let i=0;i<products.length;i++){
+        if(products[i].getName().toUpperCase().includes(txtSearch.toUpperCase())){
+            productFilters.push(products[i]);
+        }
+    }
+    drawProductsFilter(productFilters);
+}
 
 
 

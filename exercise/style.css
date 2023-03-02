@@ -74,3 +74,12 @@ table td{
     color: white;
     padding: 10px 0px;
 }
+.row{
+    display: flex;
+}
+.col-9{
+    width: 75%;
+}
+.col-3{
+    width: 25%;
+}

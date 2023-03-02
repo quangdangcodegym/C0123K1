@@ -11,25 +11,30 @@
 </head>
 <body>
     <div class="container">
-        <div class="frmAddUpdate">
-            <div class="form-group">
-                <label>Items</label>
-                <input id="txtName" class="form-control"/>
+        <div class="row">
+            <div class="frmAddUpdate col-9">
+                <div class="form-group">
+                    <label>Items</label>
+                    <input id="txtName" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input id="txtQuantity" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label>Price</label>
+                    <input id="txtPrice" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label></label>
+                    <input id="txtProductUpdate" type="hidden" />
+                    <input id="idCreate" onclick="handleCreate()" type="button" class="btn  btn-warning" value="Create"/>
+                    <input id="idUpdate" style="display: none;" onclick="handleUpdate()" type="button" class="btn  btn-warning" value="Update"/>
+                    <input id="idCancel" style="display: none;" onclick="handleCancel()" type="button" class="btn  btn-dark" value="Cancel"/>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Quantity</label>
-                <input id="txtQuantity" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <label>Price</label>
-                <input id="txtPrice" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <label></label>
-                <input id="txtProductUpdate" type="hidden" />
-                <input id="idCreate" onclick="handleCreate()" type="button" class="btn  btn-warning" value="Create"/>
-                <input id="idUpdate" style="display: none;" onclick="handleUpdate()" type="button" class="btn  btn-warning" value="Update"/>
-                <input id="idCancel" style="display: none;" onclick="handleCreate()" type="button" class="btn  btn-dark" value="Cancel"/>
+            <div class="frmSearch col-3">
+                <input class="form-control" oninput="handleSearchChange()" type="text" placeholder="search..." id="search">
             </div>
         </div>
         <div class="products">
